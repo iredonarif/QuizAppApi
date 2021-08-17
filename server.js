@@ -1,6 +1,10 @@
 const express = require("express");
 const mongoose = require('mongoose');
 const bodyParser = require("body-parser");
+
+const swaggerUi = require("swagger-ui-express");
+const swaggerFile = require("./swagger_output.json");
+
 require("dotenv/config")
 const cors = require("cors");
 
@@ -42,6 +46,11 @@ mongoose.connect(
     console.log("Connexion error " + err);
     process.exit();
 });
+
+/*
+Swagger route (api documentation)
+ */
+app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
 /*
 routes
