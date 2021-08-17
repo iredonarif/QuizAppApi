@@ -1,4 +1,5 @@
 const config = require("../config/auth");
+const role = require("../models/role");
 const db = require("../models");
 const User = db.user;
 const Role = db.role;
@@ -6,6 +7,9 @@ const Role = db.role;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
+/*
+sign up function
+ */
 exports.signup = (req, res) => {
     const user = new User({
         username: req.body.username,
@@ -20,7 +24,6 @@ exports.signup = (req, res) => {
             res.status(500).send({ message: err });
             return;
         }
-
         if (req.body.roles) {
             Role.find(
                 {
@@ -44,7 +47,7 @@ exports.signup = (req, res) => {
                 }
             );
         } else {
-            Role.findOne({ name: "user" }, (err, role) => {
+            Role.findOne({ name: role.ROLE_USER }, (err, role) => {
                 if (err) {
                     res.status(500).send({ message: err });
                     return;
@@ -64,6 +67,9 @@ exports.signup = (req, res) => {
     });
 };
 
+/*
+Sign in function
+ */
 exports.signin = (req, res) => {
     User.findOne({
         username: req.body.username

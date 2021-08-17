@@ -9,16 +9,17 @@ var corsOptions = {
     origin: "http://localhost:3000"
 };
 
+/*
+Middlewares
+ */
 app.use(cors(corsOptions));
-
 app.use(bodyParser.json());
-
 app.use(bodyParser.urlencoded({ extended: true}));
 
 const PORT = process.env.LOCAL_SERVER_PORT || 8082;
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
 
-const db = require("./models");
+const db = require("./src/models");
 const Role = db.role;
 
 db.mongoose.connect(
@@ -62,4 +63,4 @@ function initial() {
 }
 
 // routes
-require("./routes/userRoutes")(app);
+require("./src/routes/userRoutes")(app);
