@@ -24,10 +24,12 @@ const User = mongoose.model(
             type: String,
             required: true
         },
-        roles: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Role"
-        },
+        roles: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Role"
+            }
+        ],
         created_at: {
             type: Date,
             default: Date.now

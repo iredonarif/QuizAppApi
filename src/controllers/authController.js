@@ -1,5 +1,4 @@
 const config = require("../config/auth");
-const role = require("../models/role");
 const db = require("../models");
 const User = db.user;
 const Role = db.role;
@@ -38,8 +37,8 @@ exports.signup = (req, res) => {
                     user.roles = roles.map(role => role._id);
                     user.save(err => {
                         if (err) {
-                            res.status(500).send({ message: err });
-                            return;
+                            return res.status(500).send({ message: err });
+                            //return;
                         }
 
                         res.send({ message: "User was registered successfully!" });
@@ -47,7 +46,7 @@ exports.signup = (req, res) => {
                 }
             );
         } else {
-            Role.findOne({ name: role.ROLE_USER }, (err, role) => {
+            Role.findOne({ name: "user" }, (err, role) => {
                 if (err) {
                     res.status(500).send({ message: err });
                     return;
