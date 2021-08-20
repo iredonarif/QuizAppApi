@@ -9,7 +9,7 @@ var bcrypt = require("bcryptjs");
 /*
 sign up function
  */
-exports.signup = (req, res) => {
+exports.signup = async (req, res) => {
     const user = new User({
         username: req.body.username,
         last_name: req.body.last_name,
@@ -18,7 +18,7 @@ exports.signup = (req, res) => {
         password: bcrypt.hashSync(req.body.password, 8)
     });
 
-    user.save((err, user) => {
+    await user.save((err, user) => {
         if (err) {
             res.status(500).send({ message: err });
             return;
@@ -69,8 +69,8 @@ exports.signup = (req, res) => {
 /*
 Sign in function
  */
-exports.signin = (req, res) => {
-    User.findOne({
+exports.signin = async (req, res) => {
+    await User.findOne({
         username: req.body.username
     })
     .populate("roles", "-__v")

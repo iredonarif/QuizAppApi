@@ -14,11 +14,7 @@ module.exports = function (app) {
     });
 
     app.post(
-        "/api/auth/signup",
-        [
-            verifySignUp.checkDuplicateUsernameOrEmail,
-            verifySignUp.checkRolesExisted
-        ],
+        "/api/auth/signup", [verifySignUp.checkDuplicateUsernameOrEmail, verifySignUp.checkRolesExisted],
         authController.signup
     );
 
@@ -28,9 +24,5 @@ module.exports = function (app) {
 
     app.get("/api/test/user", [authJwt.verifyToken], userController.userBoard);
 
-    app.get(
-        "/api/test/admin",
-        [authJwt.verifyToken, authJwt.isAdmin],
-        userController.adminBoard
-    );
+    app.get("/api/test/admin", [authJwt.verifyToken, authJwt.isAdmin], userController.adminBoard);
 }

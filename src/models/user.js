@@ -29,16 +29,9 @@ const User = mongoose.model(
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "Role"
             }
-        ],
-        created_at: {
-            type: Date,
-            default: Date.now
-        },
-        updated_at: {
-            type: Date,
-            default: Date.now
-        }
-    })
+        ]
+    },
+    { timestamps: true })
 );
 
 module.exports = User;
